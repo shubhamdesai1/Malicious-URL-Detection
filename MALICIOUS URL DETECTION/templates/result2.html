@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <title>Result</title>
+    <style>
+        p{
+            color : black;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        #write{
+            text-align: center;
+            position:absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            /* border: 5px solid #FFFF00; */
+            padding: 10px;
+        }
+        #footer{
+            height: 40px; 
+            position: fixed; 
+            bottom:0%;
+            width:100%; 
+            background-color: #F5F5F5; 
+            opacity: 1;
+            text-align: center;
+        }
+        #all{
+            color: red;
+        }
+        /* Gauge Meter */
+        #main-div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        }
+
+        #score-meter-1{
+        width: 300px;
+        height: 150px;
+        border-top-left-radius: 360px;
+        border-top-right-radius: 360px;
+        overflow: hidden;
+        position: relative;
+        }
+        #scorer-1-inner-div{
+        position: absolute;
+        left: 20%;
+        top: 40%;
+        width: 60%;
+        height: 60%;
+        border-top-left-radius: 360px;
+        border-top-right-radius: 360px;
+        background-color: #ffffff;
+        z-index: 2;
+        }
+        #scorer-1-inner-div-2{
+        position: absolute;
+        left: 0%;
+        top: 0%;
+        z-index: 4;
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 360px;
+        border-top-right-radius: 360px;
+        background-color: #3dff5a;
+        transform-origin: bottom center;
+        transform: rotate(-130deg);
+        z-index: 0;
+        }
+        #scorer-1-inner-div-3{
+        position: absolute;
+        right: 0%;
+        top: 0%;
+        z-index: 4;
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 360px;
+        border-top-right-radius: 360px;
+        background-color: #e81b1b;
+        transform-origin: bottom center;
+        transform: rotate(130deg);
+        z-index: 0
+        }
+        #scorer-1-inner-div-4{
+        position: absolute;
+        left: 50px;
+        top: -2px;
+        width: 0;
+        height: 0;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+        border-bottom: 140px solid #d7e72b;
+        transform: rotate(180deg);
+        }
+        .scorer-1-tick {
+        position: absolute;
+        top: 40%;
+        left: -250%;
+        width: 300%;
+        height: 5px;
+        background-color: #000000;
+        animation-name: ticker-mover-1;
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: 1;
+        animation-timing-function: linear;
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+        border-top-right-radius: 5%;
+        border-bottom-right-radius: 5%;
+        }
+        #scorer-1-inner-div-5{
+        position: absolute;
+        left: 45%;
+        top: 80%;
+        width: 10%;
+        height: 20%;
+        border-radius: 50%;
+        background-color: #000000;
+        z-index: 2;
+        }
+        @keyframes ticker-mover-1 {
+        0% {
+            transform-origin: right center;
+            transform: rotate(0deg);
+        }
+        100% {
+            transform-origin:right center;
+            transform: rotate(160deg);
+        }
+        }
+        .btn {
+  background: #ff0000;
+  background-image: -webkit-linear-gradient(top, #ff0000, #b82b2b);
+  background-image: -moz-linear-gradient(top, #ff0000, #b82b2b);
+  background-image: -ms-linear-gradient(top, #ff0000, #b82b2b);
+  background-image: -o-linear-gradient(top, #ff0000, #b82b2b);
+  background-image: linear-gradient(to bottom, #ff0000, #b82b2b);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Courier New;
+  color: #dedede;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+        
+
+    </style>
+</head>
+
+<body style="background-color:#F5F5F5;">
+    <div id="write">
+        <p>The submitted url is : <a href="{{value2}}">{{ value2 }}</a> </p>
+        <!-- <p>Our prediction for the url is : {{ value }} </p> -->
+        <p><b>Predictions &nbsp; &nbsp; </b>Model 1 : {{model1_score}} &nbsp; &nbsp;| &nbsp; Model 2 : {{model2_score}} &nbsp; &nbsp;| &nbsp; Model 3 : {{model3_score}}</p>
+        <div id="main-div">
+            <!-- Scorer 1 Starts -->
+            <div class="layout-align">
+              <div id="score-meter-1" class="layout-align">
+              <div id="scorer-1-inner-div">
+                <div id="scorer-1-inner-div-5">
+                  <div class="scorer-1-tick">
+                  </div>
+                </div>
+              </div>
+              <div id="scorer-1-inner-div-2"></div>
+              <div id="scorer-1-inner-div-3"></div>
+              <div id="scorer-1-inner-div-4"></div>
+            </div>
+            </div>
+        </div>
+        <p id = "all"><b><i>NO!! The website is not safe</i></b></p>
+        <!-- <button><a href="https://safebrowsing.google.com/safebrowsing/report_badware/">Report it here</a></button> -->
+        <!-- <button href="https://safebrowsing.google.com/safebrowsing/report_badware/">Report</button> -->
+        <button class="btn" onclick="document.location='https://safebrowsing.google.com/safebrowsing/report_badware/'">REPORT HERE</button>
+    </div>
+    <br>
+    <img style="margin-top: 100px; margin-left: 550px;" id="image" src="" />
+    <div id = "footer">
+        <p>Model 1 accuracy score : 93.416 % &nbsp; | Model 2 accuracy score : 99.54 %  &nbsp; | Model 3 accuracy score : 99.722 %  &nbsp; </p> 
+    </div>
+
+    
+</body>
+
+</html>
